@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	
+	<link rel="stylesheet" href="calculate.css">
+</head>
+<body>
+	<div id="calc-wrap">
+    <div id="calc">
+        <textarea id=inputVal></textarea>
+    </div>
+</div>
+<script>
+	window.addEventListener('load', function onWindowLoaded () {
+		//нaбор кнопок
+		let sings = [
+		'1', '2', '3', '+',
+		'4', '5', '6', '-',
+		'7', '8', '9', '/',
+		'0', '=', '.', 'C',
+		'*', '%', '**', 'e'
+		];
+		//сама форма калькулятора
+		let calc = document.getElementById('calc');
+
+		//тукствовое поле с математическими выражениями
+		let textArea = document.getElementById('inputVal');
+
+		//добавление кнопок к форме калькулятора
+		sings.forEach(function (sings) {
+			let singElenment = document.createElement('div');
+			singElenment.className = 'btn';
+			singElenment.innerHTML = sings;
+			calc.appendChild(singElenment);
+			console.log('function 1');
+		});
+		document.querySelectorAll('#calc-wrap .btn').forEach(function (button) {
+			console.log('btn');
+				//добавляем действие пр клике на любую кнопку
+				button.addEventListener('click', onButtonClick);
+		})
+		
+		//функция клика по кнопке калькулятора
+		function onButtonClick (e) {
+			// mouse event - e сщдуржит инфу о clicke
+			if (e.target.innerHTML === 'C') {
+				//если нажата кнопка с то все удаляет из текстового поля
+				console.log(1);
+				textArea.innerHTML = '';
+			}else if (e.target.innerHTML === '=') {
+				//если нажато равно то с помощью языка вычисляем значение используя следующий код 
+				console.log(2);
+				textArea.innerHTML = eval(textArea.innerHTML);
+			}else if (e.target.innerHTML === '0') {
+				//усли в текстовом поле только 0
+				// стереть его и записать данныве из
+				// значений кнопки
+				console.log(3);
+				textArea.innerHTML = e.target.innerHTML;
+			}else {
+				//добавляем значение кнопки в текствовое поле
+				textArea.innerHTML += e.target.innerHTML;
+				console.log(4);
+			}
+		}
+		//	слудующий код проходит по всем кнопкам калькулятора и добав
+		//ляет событие на клик
+
+	});
+</script>
+<div id="time-node"></div>
+ 
+<script>
+   let timeNode = document.getElementById('time-node');
+ 
+   function getCurrentTimeString() {
+      return new Date().toTimeString().replace(/ .*/, '');
+   }
+ 
+   setInterval(
+      () => timeNode.innerHTML = getCurrentTimeString());
+</script>
+</body>
+</html>
